@@ -17,7 +17,7 @@ it = first
 with open(f, 'r') as file:
     for line in file:
         row = line.split()
-        print(row)
+        # print(row)
         n = {'data': {'name': row[0],
                       'elevation': int(row[1]),
                       'length': int(row[2])
@@ -38,15 +38,15 @@ while True:
         A += it['data']['ascending']
         Ck += it['data']['length']
     if it['data']['angle'] > Dk:
-        Dk = it['data']['angle']
+        Dk = math.ceil(it['data']['angle'])
         Dn = it['data']['name']
-    print(it['data'])
+    # print(it['data'])
     if it['next'] is first:
         break
     it = it['next']
 
-B = (2*everest) / Ck
+B = math.ceil((2*everest) / A)
 print(f"A: {A}")
 print(f"B: {B}")
-print(f"C: {Cl}, {Ck}")
-print(f"D: {Dn}, {Dk}")
+print(f"C: {Cl} {Ck}")
+print(f"D: {Dn} {Dk}")
