@@ -33,12 +33,12 @@ it = first
 while True:
     Cl += it['data']['length']
     it['data']['ascending'] = it['next']['data']['elevation'] - it['data']['elevation']
-    it['data']['angle'] = math.degrees(math.atan(it['data']['ascending'] / it['data']['length']))
+    it['data']['angle'] = round(math.degrees(math.asin(it['data']['ascending'] / it['data']['length'])))
     if it['data']['ascending'] > 0:
         A += it['data']['ascending']
         Ck += it['data']['length']
     if it['data']['angle'] > Dk:
-        Dk = math.ceil(it['data']['angle'])
+        Dk = it['data']['angle']
         Dn = it['data']['name']
     # print(it['data'])
     if it['next'] is first:
