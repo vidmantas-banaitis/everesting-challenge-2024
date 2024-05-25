@@ -1,47 +1,25 @@
-from __future__ import annotations
-
 import math
-from typing import TypedDict, NotRequired
 
 # Description: Everesting challenge
 f = 'duomenys.txt'
 everest = 8848  # Everestas
 
 
-class Data(TypedDict):
-    name: str
-    elevation: int  # aukštis nuo jūros lygio
-    length: int  # atkarpos ilgis
-    ascending: NotRequired[int]  # skirtumas nuo sekančios atkarpos
-    angle: NotRequired[int]  # pakilimo kampas
-
-
-class Node(TypedDict):
-    data: Data
-    next: Node
-
-
-class Result(TypedDict):
-    A: int  # Vieno rato bendras vertikalus pakilimas
-    B: int  # Ratų skaičius įveikti dvigubą Everestą
-    Cl: int  # viso rato ilgis
-    Ck: int  # kilimo atkarpų ilgis
-    Dn: str  # stačiausios atkarpos pavadinimas
-    Dk: int  # stačiausios atkarpos pakilimo kampas laipsniais
-
-
-def read_data(filename) -> Node:
-    top: Node | None = None
+def read_data(filename):
+    top = None
     it = top
 
     with open(filename, 'r') as file:
         for line in file:
             row = line.split()
             # print(row)
-            n = {'data': {'name': row[0],
-                          'elevation': int(row[1]),
-                          'length': int(row[2])
-                          }, 'next': top}
+            n = {'data':
+                     {'name': row[0],
+                      'elevation': int(row[1]),
+                      'length': int(row[2])
+                      },
+                 'next': top
+                 }
             if top is None:
                 top = n
                 it = top
@@ -60,6 +38,7 @@ def calculate(head):
     Ck = 0  # kilimo atkarpų ilgis
     Dn = ''  # stačiausios atkarpos pavadinimas
     Dk = 0  # stačiausios atkarpos pakilimo kampas laipsniais
+
     it = head
     while True:
         Cl += it['data']['length']
@@ -76,7 +55,7 @@ def calculate(head):
             break
         it = it['next']
     B = math.ceil((2 * everest) / A)
-    return Result(A=A, B=B, Cl=Cl, Ck=Ck, Dn=Dn, Dk=Dk)
+    return {'A': A, 'B': B, 'Cl': Cl, 'Ck': Ck, 'Dn': Dn, 'Dk': Dk}
 
 
 def main():
